@@ -1,102 +1,122 @@
 🎬 CineSense – AI-Powered Movie Recommendation App
 
-A modern movie discovery platform built with React, TypeScript, Vite, Supabase & TMDB
+Your personal movie discovery companion — powered by TMDB, Supabase, and intelligent recommendation logic.
 
 🌟 Overview
 
-CineSense is an intelligent movie recommendation web app designed to help users explore movies effortlessly using:
+CineSense is a modern, AI-assisted movie recommendation platform designed to help users discover movies effortlessly.
+It analyzes user preferences, browsing patterns, search behavior, and movie metadata to deliver personalized recommendations.
 
-🔥 AI-powered recommendations
-
-🎯 Personalized genre predictions
-
-🔍 Fast global movie search
-
-📊 Trending & popular movie lists
-
-🎨 A beautiful, modern UI
-
-The platform deeply analyzes user interaction patterns and leverages The Movie Database (TMDB) + Supabase to deliver a movie guide that feels personal and responsive.
+Built with a highly optimized tech stack — React + Vite + TypeScript + Supabase + TMDB — CineSense ensures blazing-fast performance and a clean, intuitive UI.
 
 🚀 Live Demo
 
-(You will update this after Vercel deploy)
-👉 https://cinesense.vercel.app
+🔗 https://cinesense-movie.vercel.app
 
 🛠 Tech Stack
-Frontend
+🎨 Frontend
 
-⚛️ React (with TypeScript)
+React (TypeScript)
 
-⚡ Vite
+Vite (super-fast build tool)
 
-🎨 TailwindCSS + Custom CSS
+Tailwind-style custom CSS
 
-🌐 Axios
+TMDB Image CDN
 
-Backend + Database
+Axios for API requests
 
-🟦 Supabase (Auth + Database)
+🗄 Backend / Database
 
-🗃 PostgreSQL
+Supabase (Auth + PostgreSQL)
 
-External APIs
+Supabase Functions (genre interest tracking)
 
-🎬 TMDB API (Movie Data)
+Supabase Row-Level Security Policies
 
-🤖 Custom AI Recommendation Logic
+🎬 External API
 
-Deployment
+TMDB API (for real-time movie data)
 
-▲ Vercel (Recommended for Vite apps)
+☁ Deployment
 
-🧩 Features
-🎯 Personalized Recommendations
+Vercel (Global Edge Network)
 
-CineSense analyzes user search behavior to highlight top genres and recommend movies aligned with their taste.
+✨ Key Features
+🔥 1. AI-Powered Movie Recommendations
 
-🔥 AI-Powered Suggestions
+CineSense provides tailored recommendations using:
 
-A dedicated AIRecommendations component curates films based on user patterns and trending insights.
+genre similarity
 
-🔍 Movie Search
+trending data
 
-Search movies from TMDB with instant results and genre-based scoring.
+user browsing behavior
 
-📁 Detailed Movie Pages
+watch history patterns
 
-Users can view:
+personalized interest scoring stored in Supabase
 
-Movie overview
+🎯 2. Personalized Genre Learning
 
-Release date
+Your app tracks:
 
-Rating
+genres of movies users view
 
-More like this
+genres they search
 
-Trailers
+movies they interact with
 
-🧠 Smart Genre-Learning System
+This data builds a genre preference profile using a Supabase SQL function.
 
-Your preferences improve as you use the app:
+🔍 3. Intelligent Search
 
-Searches
+Search across thousands of movies with:
 
-Browsed movies
+instant results
 
-Genres interacted with
+fuzzy matching
 
-🧑‍💻 User Authentication (Supabase)
+dynamic posters
+
+🎞 4. Detailed Movie Page
+
+Each movie page includes:
+
+title, overview, rating
+
+release date
+
+backdrop posters
+
+movie trailer
+
+similar movie recommendations
+
+📈 5. Trending Movies
+
+Automatically fetched from TMDB Trending API:
+
+daily trends
+
+weekly trends
+
+👤 6. User Authentication (Supabase Auth)
 
 Sign up
 
 Login
 
+Logout
+
 Persistent session
 
-Personalized feed
+Personalized data per user
 
-📈 Trending Movies
+🌗 7. Clean UI & Responsive Layout
 
-Display globally trending movies using TMDB trending endpoint.
+Optimized for:
+
+desktop
+
+tablet
