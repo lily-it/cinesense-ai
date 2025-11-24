@@ -1,0 +1,138 @@
+/* FULL PAGE */
+.auth-page {
+  position: relative;
+  height: 100vh;
+  width: 100%;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* BACKGROUND IMAGE */
+.auth-bg {
+  position: absolute;
+  inset: 0;
+ background-image: url("https://wallpaperaccess.com/full/329583.jpg");
+  background-size: cover;
+  background-position: center;
+  filter: brightness(0.35) blur(6px);
+  z-index: -3;
+  animation: slowZoom 16s ease-in-out infinite alternate;
+}
+
+@keyframes slowZoom {
+  0% { transform: scale(1); }
+  100% { transform: scale(1.12); }
+}
+
+/* FLOATING GLOW */
+.auth-light {
+  position: absolute;
+  width: 380px;
+  height: 380px;
+  background: radial-gradient(circle, rgba(255,0,0,0.32), transparent 70%);
+  filter: blur(65px);
+  animation: moveGlow 13s infinite linear;
+  z-index: -2;
+}
+
+@keyframes moveGlow {
+  0% { top: -150px; left: -150px; }
+  50% { top: 70%; left: 65%; }
+  100% { top: -150px; left: -150px; }
+}
+
+/* GLASS CARD */
+.auth-card {
+  width: 450px;
+  padding: 40px;
+  background: rgba(0, 0, 0, 0.55);
+  backdrop-filter: blur(18px);
+  border-radius: 18px;
+  box-shadow: 0 10px 32px rgba(0, 0, 0, 0.55);
+  animation: fadeUp 0.8s ease-out forwards;
+  opacity: 0;
+  transform: translateY(20px);
+}
+
+@keyframes fadeUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* TITLE */
+.auth-title {
+  text-align: center;
+  color: white;
+  font-size: 32px;
+  font-weight: 700;
+  margin-bottom: 26px;
+  text-shadow: 0 0 22px rgba(255, 0, 0, 0.7);
+}
+
+/* INPUTS */
+.auth-input {
+  width: 100%;
+  padding: 14px;
+  background: rgba(255, 255, 255, 0.18);
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  border-radius: 10px;
+  margin-bottom: 15px;
+  color: white;
+  font-size: 15px;
+  transition: 0.3s;
+}
+
+.auth-input:focus {
+  background: rgba(255,255,255,0.28);
+  transform: scale(1.02);
+}
+
+/* BUTTON */
+.auth-button {
+  width: 100%;
+  padding: 14px;
+  background: linear-gradient(90deg, #ff1d3d, #b80016);
+  border: none;
+  border-radius: 10px;
+  color: white;
+  font-size: 18px;
+  font-weight: 600;
+  cursor: pointer;
+  margin-top: 8px;
+  transition: 0.3s;
+  box-shadow: 0 0 16px rgba(255,0,0,0.6);
+}
+
+.auth-button:hover {
+  transform: scale(1.05);
+}
+
+/* MESSAGES */
+.auth-message {
+  text-align: center;
+  color: #ff7777;
+  margin-bottom: 12px;
+}
+
+/* SWITCH LINK */
+.auth-switch-text {
+  color: white;
+  text-align: center;
+  margin-top: 18px;
+  font-size: 15px;
+}
+
+.auth-switch-link {
+  color: #66c2ff;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.auth-switch-link:hover {
+  text-shadow: 0 0 10px #66c2ff;
+}
+
