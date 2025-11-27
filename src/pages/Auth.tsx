@@ -1,28 +1,47 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { supabase } from "../supabaseClient";
 import { useNavigate } from "react-router-dom";
-import "./Auth.css"; // stylesheet
+import "./Auth.css";
 
 const AuthPage: React.FC = () => {
   const navigate = useNavigate();
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [username, setUsername] = useState(""); // ⭐ Username field
   const [message, setMessage] = useState("");
   const [mode, setMode] = useState<"login" | "signup">("login");
 
+  // ----------------------------------------------------
+  // ⭐ Redirect logged-in users away from /auth
+  // ----------------------------------------------------
+  useEffect(() => {
+    const checkLoggedIn = async () => {
+      const {
+        data: { session },
+      } = await supabase.auth.getSession();
+
+      if (session) {
+        navigate("/", { replace: true });
+      }
+    };
+
+    checkLoggedIn();
+  }, [navigate]);
+
+  // ----------------------------------------------------
+  // ⭐ LOGIN + SIGNUP HANDLER
+  // ----------------------------------------------------
   const handleSubmit = async () => {
     setMessage("");
 
-    // 🔍 DEBUG LOGS — check env + data
-    console.log("EMAIL:", email);
-    console.log("PASSWORD LENGTH:", password.length);
-    console.log("URL:", import.meta.env.VITE_SUPABASE_URL);
-    console.log("KEY PRESENT:", !!import.meta.env.VITE_SUPABASE_ANON_KEY);
-
-    // ❗ Prevent Supabase 500 errors
     if (!email.trim() || !password.trim()) {
       setMessage("Email and password are required.");
+      return;
+    }
+
+    if (mode === "signup" && !username.trim()) {
+      setMessage("Username is required.");
       return;
     }
 
@@ -31,43 +50,52 @@ const AuthPage: React.FC = () => {
       return;
     }
 
+    // ----------------------------------------------
+    // ⭐ LOGIN
+    // ----------------------------------------------
     if (mode === "login") {
-      const { data, error } = await supabase.auth.signInWithPassword({
-        email,
-        password,
-      });
+      const {  error } = await supabase.auth.signInWithPassword(
+        {
+          email,
+          password,
+        }
+      );
 
       if (error) {
-        console.error("LOGIN ERROR:", error.message);
         setMessage(error.message);
       } else {
-        console.log("Logged in user:", data.user);
-
         setMessage("Login successful!");
 
-        setTimeout(() => navigate("/"), 600);
+        // ⭐ Instant redirect (no flicker, no delay)
+        navigate("/", { replace: true });
       }
-    } else {
-      const { error } = await supabase.auth.signUp({
-        email,
-        password,
-      });
 
-      if (error) {
-        console.error("SIGNUP ERROR:", error.message);
-        setMessage(error.message);
-      } else {
-        setMessage("Signup successful! Check your email.");
-      }
+      return;
+    }
+
+    // ----------------------------------------------
+    // ⭐ SIGNUP — save username in metadata
+    // ----------------------------------------------
+    const { error } = await supabase.auth.signUp({
+      email,
+      password,
+      options: {
+        data: {
+          username: username, // ⭐ Important
+        },
+      },
+    });
+
+    if (error) {
+      setMessage(error.message);
+    } else {
+      setMessage("Signup successful! Check your email to confirm.");
     }
   };
 
   return (
     <div className="auth-page">
-      {/* 🔥 Animated Background */}
       <div className="auth-bg"></div>
-
-      {/* 🔥 Floating Light Animation */}
       <div className="auth-light"></div>
 
       <div className="auth-card">
@@ -77,6 +105,7 @@ const AuthPage: React.FC = () => {
 
         {message && <p className="auth-message">{message}</p>}
 
+        {/* EMAIL */}
         <input
           type="email"
           placeholder="Email"
@@ -85,6 +114,18 @@ const AuthPage: React.FC = () => {
           onChange={(e) => setEmail(e.target.value)}
         />
 
+        {/* USERNAME (Signup Only) */}
+        {mode === "signup" && (
+          <input
+            type="text"
+            placeholder="Username"
+            className="auth-input"
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
+          />
+        )}
+
+        {/* PASSWORD */}
         <input
           type="password"
           placeholder="Password"
@@ -93,10 +134,12 @@ const AuthPage: React.FC = () => {
           onChange={(e) => setPassword(e.target.value)}
         />
 
+        {/* BUTTON */}
         <button className="auth-button" onClick={handleSubmit}>
           {mode === "login" ? "Login" : "Sign Up"}
         </button>
 
+        {/* SWITCH LOGIN / SIGNUP */}
         <p className="auth-switch-text">
           {mode === "login" ? (
             <>
